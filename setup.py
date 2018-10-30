@@ -8,6 +8,9 @@ setup(
     url='https://github.com/yargies/lektor-datapages', 
     license='MIT',
     py_modules=['lektor_data_pages'],
+    install_requires=[
+        'python-slugify',
+    ],
     entry_points={
         'lektor.plugins': [
             'data-pages = lektor_data_pages:DataPagesPlugin',

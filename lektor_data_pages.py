@@ -6,19 +6,7 @@ from lektor.sourceobj import VirtualSourceObject
 from lektor.utils import build_url
 from lektor.types import Type
 from lektor.db import Page
-
-def slugify(value):
-    """Normalizes string, converts to lowercase, removes non-alpha characters,
-    and converts spaces to hyphens.
-    see: http://stackoverflow.com/a/295466/3482692
-    """
-    if isinstance(value, str):
-        value = unicode(value, 'utf-8')
-    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore')
-    value = unicode(re.sub('[^\w\s-]', '', value).strip().lower())
-    value = re.sub('[-\s]+', '_', value)
-    return value
-
+from slugify import slugify
 
 class DataPagesObject(object):
     def __init__(self, record, items_path, name_key, template):
@@ -38,7 +26,7 @@ class DataPagesObject(object):
         for i, item in enumerate(items):
             name_path = '%s.%s.%s' % (self.items_path, i, self.name_key)
             name = self.record.pad.databags.lookup(name_path)
-            assert isinstance(name, basestring)
+            assert isinstance(name, str)
             yield DataPage(self.record, item, name, self)
 
 
